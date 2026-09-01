@@ -1,0 +1,36 @@
+{
+  "site": "https://www.demoblaze.com/index.html",
+  "cases": [
+    {
+      "type": "valido",
+      "username": "teste@productstore",
+      "password": "${SENHA_TESTE}",
+      "expected": "Login com sucesso, 'Welcome [user]' no menu",
+      "note": "Variáveis carregadas do arquivo .env"
+    },
+    {
+      "type": "senha_incorreta",
+      "username": "${USUARIO_TESTE}",
+      "password": "senha_errada",
+      "expected": "Alerta: Wrong password."
+    },
+    {
+      "type": "usuario_inexistente",
+      "username": "usuario_inexistente_999",
+      "password": "123456",
+      "expected": "Alerta: User does not exist."
+    },
+    {
+      "type": "campos_vazios",
+      "username": "",
+      "password": "",
+      "expected": "Login não realizado"
+    },
+    {
+      "type": "cadastro_username_existente",
+      "username": "teste@productstore",
+      "password": "${SENHA_TESTE}",
+      "expected": "Alerta: This user already exist. (tela de Sign up)"
+    }
+  ]
+}
