@@ -29,3 +29,13 @@ export function substituirVariaveisAmbiente(objeto) {
 
   return objeto;
 }
+
+export function obterCasoPorTipo(casos, tipo) {
+  const caso = casos.find((item) => item.type === tipo);
+
+  if (!caso) {
+    throw new Error(`Caso de teste não encontrado: ${tipo}`);
+  }
+
+  return caso;
+}

@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 import dadosLogin from "../data/login-cases.json" with { type: "json" };
-import { substituirVariaveisAmbiente } from "../utils/test-data.js";
+import {
+  obterCasoPorTipo,
+  substituirVariaveisAmbiente,
+} from "../utils/test-data.js";
 import {
   paginaCadastro,
   preencherCadastro,
@@ -9,13 +12,18 @@ import {
 } from "../pages/cadastro.pages.js";
 
 const dados = substituirVariaveisAmbiente(dadosLogin);
+const camposVazios = obterCasoPorTipo(dados.cases, "campos_vazios");
+const cadastroUsernameExistente = obterCasoPorTipo(
+  dados.cases,
+  "cadastro_username_existente",
+);
 
 test("Cadastro usuário existente", async ({ page }) => {
   await paginaCadastro(page);
   await preencherCadastro(
     page,
-    dados.cases[4].username,
-    dados.cases[4].password,
+    cadastroUsernameExistente.username,
+    cadastroUsernameExistente.password,
   );
   const alerta = prepararAlerta(page, "This user already exist.");
   await clicarBotaoSignUp(page);
@@ -26,8 +34,8 @@ test("Não deve cadastrar sem username", async ({ page }) => {
   await paginaCadastro(page);
   await preencherCadastro(
     page,
-    dados.cases[3].username,
-    dados.cases[4].password,
+    camposVazios.username,
+    cadastroUsernameExistente.password,
   );
   const alerta = prepararAlerta(page, "Please fill out Username and Password.");
   await clicarBotaoSignUp(page);
@@ -38,8 +46,8 @@ test("Não deve cadastrar sem password", async ({ page }) => {
   await paginaCadastro(page);
   await preencherCadastro(
     page,
-    dados.cases[4].username,
-    dados.cases[3].password,
+    cadastroUsernameExistente.username,
+    camposVazios.password,
   );
   const alerta = prepararAlerta(page, "Please fill out Username and Password.");
   await clicarBotaoSignUp(page);

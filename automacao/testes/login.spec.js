@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 import dadosLogin from "../data/login-cases.json" with { type: "json" };
-import { substituirVariaveisAmbiente } from "../utils/test-data.js";
+import {
+  obterCasoPorTipo,
+  substituirVariaveisAmbiente,
+} from "../utils/test-data.js";
 import {
   paginaLogin,
   preencherLogin,
@@ -11,10 +14,16 @@ import {
 
 // Substitui variáveis de ambiente nos dados de teste
 const dados = substituirVariaveisAmbiente(dadosLogin);
+const loginValido = obterCasoPorTipo(dados.cases, "valido");
+const senhaIncorreta = obterCasoPorTipo(dados.cases, "senha_incorreta");
+const usuarioInexistente = obterCasoPorTipo(
+  dados.cases,
+  "usuario_inexistente",
+);
 
 test("Login com Sucesso", async ({ page }) => {
-  const usuario = dados.cases[0].username;
-  const senha = dados.cases[0].password;
+  const usuario = loginValido.username;
+  const senha = loginValido.password;
 
   await paginaLogin(page);
   await preencherLogin(page, usuario, senha);
@@ -24,7 +33,7 @@ test("Login com Sucesso", async ({ page }) => {
 
 test("Login com senha incorreta", async ({ page }) => {
   await paginaLogin(page);
-  await preencherLogin(page, dados.cases[1].username, dados.cases[1].password);
+  await preencherLogin(page, senhaIncorreta.username, senhaIncorreta.password);
   const alerta = validarAlerta(page, "Wrong password.");
   await botaoLogin(page);
   await alerta;
@@ -32,7 +41,7 @@ test("Login com senha incorreta", async ({ page }) => {
 
 test("Login sem username", async ({ page }) => {
   await paginaLogin(page);
-  await preencherLogin(page, "", dados.cases[0].password);
+  await preencherLogin(page, "", loginValido.password);
   const alerta = validarAlerta(page, "Please fill out Username and Password.");
   await botaoLogin(page);
   await alerta;
@@ -40,7 +49,7 @@ test("Login sem username", async ({ page }) => {
 
 test("Login sem senha", async ({ page }) => {
   await paginaLogin(page);
-  await preencherLogin(page, dados.cases[0].username, "");
+  await preencherLogin(page, loginValido.username, "");
   const alerta = validarAlerta(page, "Please fill out Username and Password.");
   await botaoLogin(page);
   await alerta;
@@ -48,7 +57,11 @@ test("Login sem senha", async ({ page }) => {
 
 test("Usuario sem cadastro", async ({ page }) => {
   await paginaLogin(page);
-  await preencherLogin(page, dados.cases[2].username, dados.cases[2].password);
+  await preencherLogin(
+    page,
+    usuarioInexistente.username,
+    usuarioInexistente.password,
+  );
   const alerta = validarAlerta(page, "User does not exist.");
   await botaoLogin(page);
   await alerta;
