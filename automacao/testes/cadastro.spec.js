@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import dadosLogin from "../data/login-cases.json" with { type: "json" };
+import dadosCadastro from "../data/cadastro-cases.json" with { type: "json" };
 import {
   obterCasoPorTipo,
   substituirVariaveisAmbiente,
@@ -11,7 +11,7 @@ import {
   clicarBotaoSignUp,
 } from "../pages/cadastro.pages.js";
 
-const dados = substituirVariaveisAmbiente(dadosLogin);
+const dados = substituirVariaveisAmbiente(dadosCadastro);
 const camposVazios = obterCasoPorTipo(dados.cases, "campos_vazios");
 const cadastroUsernameExistente = obterCasoPorTipo(
   dados.cases,
