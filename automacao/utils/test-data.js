@@ -6,11 +6,10 @@
 export function substituirVariaveisAmbiente(objeto) {
   if (typeof objeto === "string") {
     // Substitui ${VAR_NAME} por process.env.VAR_NAME
-    return objeto.replace(/\$\{([^}]+)\}/g, (match, varName) => {
+    return objeto.replace(/\$\{([^}]+)\}/g, (_match, varName) => {
       const valor = process.env[varName];
       if (!valor) {
-        console.warn(`⚠️ Variável de ambiente não encontrada: ${varName}`);
-        return match; // Retorna o placeholder original se var não existir
+        throw new Error(`Variável de ambiente obrigatória ausente: ${varName}`);
       }
       return valor;
     });
