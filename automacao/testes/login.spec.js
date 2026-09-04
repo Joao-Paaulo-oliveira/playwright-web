@@ -22,6 +22,14 @@ test("Login com Sucesso", async ({ page }) => {
   await validarCampoWelcome(page, usuario);
 });
 
+test("Login com senha incorreta", async ({ page }) => {
+  await paginaLogin(page);
+  await preencherLogin(page, dados.cases[1].username, dados.cases[1].password);
+  const alerta = validarAlerta(page, "Wrong password.");
+  await botaoLogin(page);
+  await alerta;
+});
+
 test("Login sem username", async ({ page }) => {
   await paginaLogin(page);
   await preencherLogin(page, "", dados.cases[0].password);
