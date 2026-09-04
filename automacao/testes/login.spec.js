@@ -8,8 +8,8 @@ import {
   paginaLogin,
   preencherLogin,
   botaoLogin,
-  validarCampoWelcome,
-  validarAlerta,
+  campoWelcome,
+  capturarMensagemAlerta,
 } from "../pages/login.pages.js";
 
 // Substitui variáveis de ambiente nos dados de teste
@@ -28,31 +28,31 @@ test("Login com Sucesso", async ({ page }) => {
   await paginaLogin(page);
   await preencherLogin(page, usuario, senha);
   await botaoLogin(page);
-  await validarCampoWelcome(page, usuario);
+  await expect(campoWelcome(page)).toContainText(usuario);
 });
 
 test("Login com senha incorreta", async ({ page }) => {
   await paginaLogin(page);
   await preencherLogin(page, senhaIncorreta.username, senhaIncorreta.password);
-  const alerta = validarAlerta(page, "Wrong password.");
+  const alerta = capturarMensagemAlerta(page);
   await botaoLogin(page);
-  await alerta;
+  expect(await alerta).toBe("Wrong password.");
 });
 
 test("Login sem username", async ({ page }) => {
   await paginaLogin(page);
   await preencherLogin(page, "", loginValido.password);
-  const alerta = validarAlerta(page, "Please fill out Username and Password.");
+  const alerta = capturarMensagemAlerta(page);
   await botaoLogin(page);
-  await alerta;
+  expect(await alerta).toBe("Please fill out Username and Password.");
 });
 
 test("Login sem senha", async ({ page }) => {
   await paginaLogin(page);
   await preencherLogin(page, loginValido.username, "");
-  const alerta = validarAlerta(page, "Please fill out Username and Password.");
+  const alerta = capturarMensagemAlerta(page);
   await botaoLogin(page);
-  await alerta;
+  expect(await alerta).toBe("Please fill out Username and Password.");
 });
 
 test("Usuario sem cadastro", async ({ page }) => {
@@ -62,7 +62,7 @@ test("Usuario sem cadastro", async ({ page }) => {
     usuarioInexistente.username,
     usuarioInexistente.password,
   );
-  const alerta = validarAlerta(page, "User does not exist.");
+  const alerta = capturarMensagemAlerta(page);
   await botaoLogin(page);
-  await alerta;
+  expect(await alerta).toBe("User does not exist.");
 });

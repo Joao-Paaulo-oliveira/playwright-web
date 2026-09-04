@@ -15,20 +15,19 @@ const botaoLogin = async (page) => {
   await page.locator('button[onclick="logIn()"]').click();
 };
 
-const validarCampoWelcome = async (page, usernameEsperado) => {
-  await expect(page.locator("#nameofuser")).toContainText(usernameEsperado);
-};
+const campoWelcome = (page) => page.locator("#nameofuser");
 
-const validarAlerta = async (page, mensagemEsperada) => {
+const capturarMensagemAlerta = async (page) => {
   const dialog = await page.waitForEvent("dialog");
-  expect(dialog.message()).toBe(mensagemEsperada);
+  const mensagem = dialog.message();
   await dialog.accept();
+  return mensagem;
 };
 
 export {
   paginaLogin,
   preencherLogin,
   botaoLogin,
-  validarCampoWelcome,
-  validarAlerta,
+  campoWelcome,
+  capturarMensagemAlerta,
 };

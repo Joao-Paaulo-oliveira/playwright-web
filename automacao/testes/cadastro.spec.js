@@ -25,9 +25,9 @@ test("Cadastro usuário existente", async ({ page }) => {
     cadastroUsernameExistente.username,
     cadastroUsernameExistente.password,
   );
-  const alerta = prepararAlerta(page, "This user already exist.");
+  const alerta = prepararAlerta(page);
   await clicarBotaoSignUp(page);
-  await alerta;
+  expect(await alerta).toBe("This user already exist.");
 });
 
 test("Não deve cadastrar sem username", async ({ page }) => {
@@ -37,9 +37,9 @@ test("Não deve cadastrar sem username", async ({ page }) => {
     camposVazios.username,
     cadastroUsernameExistente.password,
   );
-  const alerta = prepararAlerta(page, "Please fill out Username and Password.");
+  const alerta = prepararAlerta(page);
   await clicarBotaoSignUp(page);
-  await alerta;
+  expect(await alerta).toBe("Please fill out Username and Password.");
 });
 
 test("Não deve cadastrar sem password", async ({ page }) => {
@@ -49,7 +49,7 @@ test("Não deve cadastrar sem password", async ({ page }) => {
     cadastroUsernameExistente.username,
     camposVazios.password,
   );
-  const alerta = prepararAlerta(page, "Please fill out Username and Password.");
+  const alerta = prepararAlerta(page);
   await clicarBotaoSignUp(page);
-  await alerta;
+  expect(await alerta).toBe("Please fill out Username and Password.");
 });

@@ -1,5 +1,3 @@
-import { expect } from "@playwright/test";
-
 const paginaCadastro = async (page) => {
   await page.goto("/");
   await page.getByRole("link", { name: "Sign up" }).click();
@@ -12,12 +10,11 @@ const preencherCadastro = async (page, username, password) => {
   await page.getByRole("textbox", { name: "Password:" }).fill(password);
 };
 
-const prepararAlerta = async (page, mensagemEsperada) => {
+const prepararAlerta = async (page) => {
   const dialog = await page.waitForEvent("dialog");
-
-  expect(dialog.message()).toBe(mensagemEsperada);
-
+  const mensagem = dialog.message();
   await dialog.accept();
+  return mensagem;
 };
 
 const clicarBotaoSignUp = async (page) => {
