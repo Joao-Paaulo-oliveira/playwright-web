@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 
 const paginaLogin = async (page) => {
-  await page.goto("https://www.demoblaze.com/index.html");
+  await page.goto("/");
   await page.getByRole("link", { name: "Log in" }).click();
   await expect(page.getByRole("heading", { name: "Log in" })).toBeVisible();
 };

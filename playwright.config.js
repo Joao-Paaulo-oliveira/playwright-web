@@ -12,6 +12,11 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
+const baseURL = process.env.BASE_URL?.trim();
+if (!baseURL) {
+  throw new Error("Variável de ambiente obrigatória ausente: BASE_URL");
+}
+
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
@@ -32,7 +37,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",

@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 
 const paginaCadastro = async (page) => {
-  await page.goto("https://www.demoblaze.com/index.html");
+  await page.goto("/");
   await page.getByRole("link", { name: "Sign up" }).click();
 };
 
