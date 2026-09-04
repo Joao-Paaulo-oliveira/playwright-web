@@ -37,7 +37,7 @@ playwright-web/
 │   │   └── login.spec.js
 │   └── utils/
 │       └── test-data.js
-├── screnshoots/
+├── screenshots/
 │   ├── cadastro/
 │   └── login/
 └── README.md
@@ -253,27 +253,27 @@ E exibir a mensagem "Please fill out Username and Password."
 
 ## Evidências dos testes
 
-As evidências abaixo representam capturas obtidas durante a execução dos testes e encontram-se na pasta `screnshoots` do projeto.
+As imagens abaixo são capturas históricas e ilustrativas dos cenários automatizados. Elas apoiam a apresentação do portfólio, não representam evidência de uma execução atual e encontram-se na pasta `screenshots` do projeto.
 
 ### Login
 
 Não há screenshot versionada para o cenário "Login com senha incorreta".
 
-![Login com sucesso](./screnshoots/login/login_com_sucesso.png)
+![Login com sucesso](./screenshots/login/login_com_sucesso.png)
 
-![Login sem senha](./screnshoots/login/login_sem_senha.png)
+![Login sem senha](./screenshots/login/login_sem_senha.png)
 
-![Login sem username](./screnshoots/login/login_sem_username.png)
+![Login sem username](./screenshots/login/login_sem_username.png)
 
-![Login com usuário inexistente](./screnshoots/login/login_usuario_inexistente.png)
+![Login com usuário inexistente](./screenshots/login/login_usuario_inexistente.png)
 
 ### Cadastro
 
-![Cadastro com usuário existente](./screnshoots/cadastro/cadastro_usuario_existente.png)
+![Cadastro com usuário existente](./screenshots/cadastro/cadastro_usuario_existente.png)
 
-![Cadastro sem username](./screnshoots/cadastro/cadastro_sem_username.png)
+![Cadastro sem username](./screenshots/cadastro/cadastro_sem_username.png)
 
-![Cadastro sem senha](./screnshoots/cadastro/cadastro_sem_senha.png)
+![Cadastro sem senha](./screenshots/cadastro/cadastro_sem_senha.png)
 
 ## Boas práticas utilizadas no projeto
 
