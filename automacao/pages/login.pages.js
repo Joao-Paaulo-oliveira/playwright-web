@@ -1,21 +1,21 @@
 import { expect } from "@playwright/test";
 
-const paginaLogin = async (page) => {
+const abrirModalLogin = async (page) => {
   await page.goto("/");
   await page.getByRole("link", { name: "Log in" }).click();
   await expect(page.getByRole("heading", { name: "Log in" })).toBeVisible();
 };
 
-const preencherLogin = async (page, username, password) => {
+const preencherFormularioLogin = async (page, username, password) => {
   await page.locator("#loginusername").fill(username);
   await page.locator("#loginpassword").fill(password);
 };
 
-const botaoLogin = async (page) => {
-  await page.locator('button[onclick="logIn()"]').click();
+const clicarBotaoLogin = async (page) => {
+  await page.getByRole("button", { name: "Log in" }).click();
 };
 
-const campoWelcome = (page) => page.locator("#nameofuser");
+const obterCampoBoasVindas = (page) => page.locator("#nameofuser");
 
 const capturarMensagemAlerta = async (page) => {
   const dialog = await page.waitForEvent("dialog");
@@ -25,9 +25,9 @@ const capturarMensagemAlerta = async (page) => {
 };
 
 export {
-  paginaLogin,
-  preencherLogin,
-  botaoLogin,
-  campoWelcome,
+  abrirModalLogin,
+  preencherFormularioLogin,
+  clicarBotaoLogin,
+  obterCampoBoasVindas,
   capturarMensagemAlerta,
 };

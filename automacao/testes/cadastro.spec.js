@@ -5,10 +5,10 @@ import {
   substituirVariaveisAmbiente,
 } from "../utils/test-data.js";
 import {
-  paginaCadastro,
-  preencherCadastro,
-  prepararAlerta,
-  clicarBotaoSignUp,
+  abrirModalCadastro,
+  preencherFormularioCadastro,
+  capturarMensagemAlerta,
+  clicarBotaoCadastro,
 } from "../pages/cadastro.pages.js";
 
 const dados = substituirVariaveisAmbiente(dadosCadastro);
@@ -19,37 +19,37 @@ const cadastroUsernameExistente = obterCasoPorTipo(
 );
 
 test("Cadastro usuário existente", async ({ page }) => {
-  await paginaCadastro(page);
-  await preencherCadastro(
+  await abrirModalCadastro(page);
+  await preencherFormularioCadastro(
     page,
     cadastroUsernameExistente.username,
     cadastroUsernameExistente.password,
   );
-  const alerta = prepararAlerta(page);
-  await clicarBotaoSignUp(page);
+  const alerta = capturarMensagemAlerta(page);
+  await clicarBotaoCadastro(page);
   expect(await alerta).toBe("This user already exist.");
 });
 
 test("Não deve cadastrar sem username", async ({ page }) => {
-  await paginaCadastro(page);
-  await preencherCadastro(
+  await abrirModalCadastro(page);
+  await preencherFormularioCadastro(
     page,
     camposVazios.username,
     cadastroUsernameExistente.password,
   );
-  const alerta = prepararAlerta(page);
-  await clicarBotaoSignUp(page);
+  const alerta = capturarMensagemAlerta(page);
+  await clicarBotaoCadastro(page);
   expect(await alerta).toBe("Please fill out Username and Password.");
 });
 
 test("Não deve cadastrar sem password", async ({ page }) => {
-  await paginaCadastro(page);
-  await preencherCadastro(
+  await abrirModalCadastro(page);
+  await preencherFormularioCadastro(
     page,
     cadastroUsernameExistente.username,
     camposVazios.password,
   );
-  const alerta = prepararAlerta(page);
-  await clicarBotaoSignUp(page);
+  const alerta = capturarMensagemAlerta(page);
+  await clicarBotaoCadastro(page);
   expect(await alerta).toBe("Please fill out Username and Password.");
 });
