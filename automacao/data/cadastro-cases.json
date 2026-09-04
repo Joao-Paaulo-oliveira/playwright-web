@@ -1,0 +1,16 @@
+{
+  "cases": [
+    {
+      "type": "campos_vazios",
+      "username": "",
+      "password": "",
+      "expected": "Login não realizado"
+    },
+    {
+      "type": "cadastro_username_existente",
+      "username": "teste@productstore",
+      "password": "${SENHA_TESTE}",
+      "expected": "Alerta: This user already exist. (tela de Sign up)"
+    }
+  ]
+}
